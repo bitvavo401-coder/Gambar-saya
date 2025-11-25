@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from 'react';
-import { UploadCloud, Image as ImageIcon, Plus } from 'lucide-react';
+import { CloudUpload, Image as ImageIcon, Plus } from 'lucide-react';
 
 interface DropZoneProps {
   onFilesSelected: (files: File[]) => void;
@@ -85,7 +85,7 @@ const DropZone: React.FC<DropZoneProps> = ({ onFilesSelected }) => {
         `}>
            <div className="absolute inset-0 rounded-full border border-white/5"></div>
           {isDragOver ? (
-            <UploadCloud className="w-10 h-10 text-brand-400 animate-bounce" />
+            <CloudUpload className="w-10 h-10 text-brand-400 animate-bounce" />
           ) : (
             <ImageIcon className="w-10 h-10 text-slate-400 group-hover:text-brand-300 transition-colors" />
           )}
