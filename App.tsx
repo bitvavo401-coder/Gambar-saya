@@ -4,7 +4,7 @@ import { fileToBase64, generateId } from './services/utils';
 import { analyzeImageWithGemini } from './services/geminiService';
 import DropZone from './components/DropZone';
 import ImageCard from './components/ImageCard';
-import { Camera, Zap } from 'lucide-react';
+import { Camera, Zap, Sparkles, ImagePlus } from 'lucide-react';
 
 const App: React.FC = () => {
   const [images, setImages] = useState<UploadedImage[]>([]);
@@ -38,7 +38,6 @@ const App: React.FC = () => {
     if (!imageToAnalyze) return;
 
     try {
-      // imageToAnalyze.previewUrl is a base64 Data URL
       const result = await analyzeImageWithGemini(
         imageToAnalyze.previewUrl,
         imageToAnalyze.file.type,
@@ -56,64 +55,84 @@ const App: React.FC = () => {
   }, [images]);
 
   return (
-    <div className="min-h-screen bg-slate-950 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-black text-slate-100">
+    <div className="min-h-screen text-slate-100 selection:bg-brand-500/30">
       
-      {/* Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
+      {/* Glass Header */}
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/10 supports-[backdrop-filter]:bg-slate-950/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-brand-500/10 p-2 rounded-lg">
-              <Camera className="w-6 h-6 text-brand-400" />
+          <div className="flex items-center gap-3">
+            <div className="relative group">
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-400 to-blue-500 rounded-lg blur opacity-50 group-hover:opacity-100 transition duration-200"></div>
+              <div className="relative bg-slate-950 p-2 rounded-lg">
+                <Camera className="w-5 h-5 text-brand-300" />
+              </div>
             </div>
-            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-300 to-brand-600">
-              Visionary Uploads
+            <h1 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+              Visionary<span className="text-brand-400">.ai</span>
             </h1>
           </div>
-          <div className="flex items-center gap-4 text-sm text-slate-400 hidden sm:flex">
-             <div className="flex items-center gap-1">
-                <Zap size={14} className="text-yellow-400" />
+          <div className="flex items-center gap-4 text-xs font-medium text-slate-400 hidden sm:flex bg-white/5 px-3 py-1.5 rounded-full border border-white/5">
+             <div className="flex items-center gap-1.5">
+                <Zap size={14} className="text-amber-400 fill-amber-400" />
                 <span>Powered by Gemini 2.5</span>
              </div>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
         
-        {/* Intro Section */}
-        <section className="text-center max-w-2xl mx-auto space-y-4 mb-12">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Upload images. <br/>
-            <span className="text-brand-400">Unlock insights.</span>
-          </h2>
-          <p className="text-slate-400 text-lg">
-            Drag and drop your images below to instantly generate descriptions, hashtags, or extract text using advanced AI vision.
-          </p>
+        {/* Hero Section */}
+        <section className="text-center max-w-3xl mx-auto relative">
+          {/* Decorative blobs */}
+          <div className="absolute -top-20 -left-20 w-72 h-72 bg-brand-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute -top-20 -right-20 w-72 h-72 bg-purple-500/20 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+          <div className="relative space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-300 text-xs font-medium mb-4">
+              <Sparkles size={12} />
+              <span>Next Generation Image Analysis</span>
+            </div>
+            
+            <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              Give your images <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-brand-400 to-blue-500">
+                a voice.
+              </span>
+            </h2>
+            
+            <p className="text-slate-400 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+              Upload images to instantly extract text, generate hashtags, or get detailed descriptions using advanced AI vision.
+            </p>
+          </div>
         </section>
 
         {/* Upload Section */}
-        <section className="max-w-3xl mx-auto">
+        <section className="max-w-4xl mx-auto transform transition-all hover:scale-[1.01] duration-500">
           <DropZone onFilesSelected={handleFilesSelected} />
         </section>
 
-        {/* Grid Section */}
+        {/* Gallery Section */}
         {images.length > 0 && (
-          <section className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold text-slate-200">
-                Your Gallery <span className="text-slate-500 text-sm font-normal ml-2">({images.length})</span>
-              </h3>
+          <section className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-2">
+                <ImagePlus className="text-brand-400" size={20} />
+                <h3 className="text-xl font-semibold text-white">
+                  Gallery <span className="text-slate-500 text-base font-normal ml-2">({images.length})</span>
+                </h3>
+              </div>
               {images.length > 1 && (
                  <button 
                   onClick={() => setImages([])}
-                  className="text-xs text-red-400 hover:text-red-300 transition-colors"
+                  className="text-xs font-medium px-3 py-1.5 rounded-md bg-red-500/10 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-colors"
                  >
-                   Clear All
+                   Clear Gallery
                  </button>
               )}
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
               {images.map(image => (
                 <ImageCard
                   key={image.id}
@@ -128,9 +147,12 @@ const App: React.FC = () => {
 
       </main>
 
-      <footer className="border-t border-slate-800 bg-slate-950 py-8 mt-12">
-        <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} Visionary Uploads. All processing happens safely in your browser session.</p>
+      <footer className="border-t border-white/5 bg-black/20 backdrop-blur-sm py-12 mt-20">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-slate-500 text-sm">
+            &copy; {new Date().getFullYear()} Visionary Uploads. 
+            <span className="block mt-1 text-slate-600">Built for the future of web.</span>
+          </p>
         </div>
       </footer>
     </div>
