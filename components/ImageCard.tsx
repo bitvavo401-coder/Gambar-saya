@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Trash2, Loader2, Sparkles, ScanText, Hash, Eye, Maximize2 } from 'lucide-react';
+import { Trash2, Loader2, Sparkles, ScanText, Hash, Eye } from 'lucide-react';
 import { UploadedImage, ANALYSIS_OPTIONS, AnalysisType } from '../types';
 import AnalysisResult from './AnalysisResult';
 
